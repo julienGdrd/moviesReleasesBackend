@@ -34,4 +34,16 @@ router.post("/byCat", (req, res) => {
     res.json({movies: data.results})
   })
 })
+
+router.post("/search", (req, res) => {
+  console.log('req.body :', req.body.searchQuery)
+  fetch(`https://api.themoviedb.org/3/search/movie?query=${req.body.searchQuery}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`)
+  .then(response => response.json())
+  .then(data => {
+    res.json({movies: data.results})
+    console.log(data)
+  })
+})
+
+
 module.exports = router;
