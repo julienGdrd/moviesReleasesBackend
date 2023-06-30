@@ -40,7 +40,8 @@ router.post("/search", (req, res) => {
   fetch(`https://api.themoviedb.org/3/search/movie?query=${req.body.searchQuery}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`)
   .then(response => response.json())
   .then(data => {
-    res.json({movies: data.results})
+    const moviesWithPoster = data.results.filter(movie => movie.poster_path !== null)
+    res.json({movies: moviesWithPoster})
     console.log(data)
   })
 })
